@@ -57,7 +57,7 @@ var Store = /** @class */ (function () {
                     case 0:
                         _b.trys.push([0, 2, , 3]);
                         return [4 /*yield*/, this.$get(name)];
-                    case 1: return [2 /*return*/, _b.sent()];
+                    case 1: return [2 /*return*/, (_b.sent())];
                     case 2:
                         _a = _b.sent();
                         return [2 /*return*/, defaultValue];
@@ -69,13 +69,7 @@ var Store = /** @class */ (function () {
     Store.prototype.remove = function (name) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                try {
-                    return [2 /*return*/, this.$remove(name)];
-                }
-                catch (e) {
-                    throw e;
-                }
-                return [2 /*return*/];
+                return [2 /*return*/, this.$remove(name)];
             });
         });
     };

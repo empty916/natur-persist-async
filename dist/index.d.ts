@@ -1,4 +1,4 @@
-import { Middleware } from 'natur';
+import { Middleware } from "natur";
 declare type Data = {
     [m: string]: any;
 };
@@ -10,11 +10,11 @@ declare type CreateLocalStorageMiddleware = {
     specific?: {
         [n: string]: number;
     };
-    setStore: (name: string, data: Data) => Promise<void>;
-    getStore: (name: string) => Promise<any>;
-    removeStore: (name: string) => Promise<void>;
+    setItem: (name: string, data: Data) => Promise<void>;
+    getItem: (name: string) => Promise<any>;
+    removeItem: (name: string) => Promise<void>;
 };
-declare function createPersistMiddleware({ name, time, exclude, include, specific, setStore, getStore, removeStore, }: CreateLocalStorageMiddleware): {
+declare function createPersistMiddleware({ name, time, exclude, include, specific, setItem, getItem, removeItem, }: CreateLocalStorageMiddleware): {
     middleware: Middleware;
     getData: () => Promise<Data | undefined>;
     clearData: () => Promise<void>;

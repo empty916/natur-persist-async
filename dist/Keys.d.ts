@@ -1,4 +1,4 @@
-import Store from './Store';
+import Store from "./Store";
 export default class Keys {
     value: Promise<Array<string>>;
     store: Store;

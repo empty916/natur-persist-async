@@ -43,20 +43,23 @@ var Keys = /** @class */ (function () {
     }
     Keys.prototype.set = function (moduleName) {
         return __awaiter(this, void 0, void 0, function () {
-            var v;
+            var hasModule, v;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0:
-                        if (this.has(moduleName)) {
+                    case 0: return [4 /*yield*/, this.has(moduleName)];
+                    case 1:
+                        hasModule = _a.sent();
+                        if (hasModule) {
                             return [2 /*return*/];
                         }
                         return [4 /*yield*/, this.value];
-                    case 1:
-                        v = _a.sent();
+                    case 2:
+                        v = (_a.sent()) || [];
                         v.push(moduleName);
                         return [4 /*yield*/, this.store.set(this.name, v)];
-                    case 2:
+                    case 3:
                         _a.sent();
+                        this.value = Promise.resolve(v);
                         return [2 /*return*/];
                 }
             });
@@ -69,7 +72,7 @@ var Keys = /** @class */ (function () {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.value];
                     case 1:
-                        v = _a.sent();
+                        v = (_a.sent()) || [];
                         return [2 /*return*/, v.includes(moduleName)];
                 }
             });
@@ -86,7 +89,7 @@ var Keys = /** @class */ (function () {
                         if (!hasModule) return [3 /*break*/, 3];
                         return [4 /*yield*/, this.value];
                     case 2:
-                        v = _a.sent();
+                        v = (_a.sent()) || [];
                         newValue = v.filter(function (m) { return m !== moduleName; });
                         this.value = Promise.resolve(newValue);
                         return [2 /*return*/, this.store.set(this.name, newValue)];
@@ -103,7 +106,7 @@ var Keys = /** @class */ (function () {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.value];
                     case 1:
-                        v = _a.sent();
+                        v = (_a.sent()) || [];
                         return [2 /*return*/, v.map(function (mn) { return "" + _this.prefix + mn; })];
                 }
             });

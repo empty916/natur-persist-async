@@ -34,17 +34,17 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-import Store from './Store';
-import Keys from './Keys';
+import Store from "./Store";
+import Keys from "./Keys";
 function createPersistMiddleware(_a) {
     var _this = this;
-    var _b = _a.name, name = _b === void 0 ? 'natur' : _b, _c = _a.time, time = _c === void 0 ? 100 : _c, exclude = _a.exclude, include = _a.include, _d = _a.specific, specific = _d === void 0 ? {} : _d, setStore = _a.setStore, getStore = _a.getStore, removeStore = _a.removeStore;
+    var _b = _a.name, name = _b === void 0 ? "natur" : _b, _c = _a.time, time = _c === void 0 ? 100 : _c, exclude = _a.exclude, include = _a.include, _d = _a.specific, specific = _d === void 0 ? {} : _d, setItem = _a.setItem, getItem = _a.getItem, removeItem = _a.removeItem;
     var store = new Store({
-        set: setStore,
-        get: getStore,
-        remove: removeStore
+        set: setItem,
+        get: getItem,
+        remove: removeItem
     });
-    var lsData = undefined;
+    var lsData;
     var dataPrefix = name + "/";
     var keys = new Keys(store, dataPrefix);
     var isSaving = {};
@@ -91,7 +91,7 @@ function createPersistMiddleware(_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, keys.value];
                     case 1:
-                        keyValue = _a.sent();
+                        keyValue = (_a.sent()) || [];
                         return [4 /*yield*/, Promise.all(keyValue.map(function (m) { return __awaiter(_this, void 0, void 0, function () {
                                 return __generator(this, function (_a) {
                                     switch (_a.label) {
@@ -124,6 +124,7 @@ function createPersistMiddleware(_a) {
                 case 0: return [4 /*yield*/, keys.get()];
                 case 1:
                     keyNames = _a.sent();
+                    console.log(keyNames);
                     if (!keyNames.length) return [3 /*break*/, 3];
                     if (lsData === undefined) {
                         lsData = {};
@@ -135,7 +136,7 @@ function createPersistMiddleware(_a) {
                                     case 0:
                                         // @ts-ignore
                                         _a = lsData;
-                                        _b = key.replace(dataPrefix, '');
+                                        _b = key.replace(dataPrefix, "");
                                         return [4 /*yield*/, store.get(key)];
                                     case 1:
                                         // @ts-ignore
@@ -182,10 +183,7 @@ function createPersistMiddleware(_a) {
                 case 1:
                     keyNames = _a.sent();
                     return [4 /*yield*/, Promise.all(keyNames.map(function (moduleName) { return __awaiter(_this, void 0, void 0, function () { return __generator(this, function (_a) {
-                            switch (_a.label) {
-                                case 0: return [4 /*yield*/, store.remove(moduleName)];
-                                case 1: return [2 /*return*/, _a.sent()];
-                            }
+                            return [2 /*return*/, store.remove(moduleName)];
                         }); }); }))];
                 case 2:
                     _a.sent();
@@ -196,16 +194,18 @@ function createPersistMiddleware(_a) {
             }
         });
     }); };
-    var getData = function () { return __awaiter(_this, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, init];
-                case 1:
-                    _a.sent();
-                    return [2 /*return*/, lsData];
-            }
+    var getData = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, init];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/, lsData];
+                }
+            });
         });
-    }); };
+    };
     return {
         middleware: lsMiddleware,
         getData: getData,

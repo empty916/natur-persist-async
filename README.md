@@ -20,25 +20,25 @@ const { middleware, getData, clearData } = createPersistMiddleware({
   specific: {
     user: 0, // 用户模块的保存延迟为0，意为用户模块的数据同步到localStorage是同步的
   },
-  setStore: async (key: string, value: any) => {
+  setItem: async (key: string, value: any) => {
     try {
       await AsyncStorage.setItem(key, JSON.stringify(value));
     } catch (e) {
       // saving error
     }
   },
-  getStore: async (key: string) => {
+  getItem: async (key: string) => {
     try {
       await AsyncStorage.getItem(key);
     } catch (e) {
-      // saving error
+      // get error
     }
   },
-  removeStore: async (key: string) => {
+  removeItem: async (key: string) => {
     try {
       await AsyncStorage.removeItem(key);
     } catch (e) {
-      // saving error
+      // remove error
     }
   },
 });
