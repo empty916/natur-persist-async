@@ -1,15 +1,14 @@
-# natur-persist
+# rn-natur-persist
 
-## natur状态管理器的localstorage缓存中间件
+## natur状态管理器的异步持久化缓存中间件
 
-- 将natur数据同步到localStorage，
 - 同步操作有一定的延迟，使用防抖做同步操作
 
 ## demo
 
 ````typescript
 import { createStore } from 'natur';
-import createPersistMiddleware from 'natur-persist';
+import createPersistMiddleware from 'rn-natur-persist';
 import AsyncStorage from '@react-native-community/async-storage';
 
 
