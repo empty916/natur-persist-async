@@ -10,6 +10,7 @@
 ````typescript
 import { createStore } from 'natur';
 import createPersistMiddleware from 'natur-persist';
+import AsyncStorage from '@react-native-community/async-storage';
 
 
 const { middleware, getData, clearData } = createPersistMiddleware({
@@ -20,17 +21,41 @@ const { middleware, getData, clearData } = createPersistMiddleware({
   specific: {
     user: 0, // 用户模块的保存延迟为0，意为用户模块的数据同步到localStorage是同步的
   },
+  setStore: async (key: string, value: any) => {
+    try {
+      await AsyncStorage.setItem(key, JSON.stringify(value));
+    } catch (e) {
+      // saving error
+    }
+  },
+  getStore: async (key: string) => {
+    try {
+      await AsyncStorage.getItem(key);
+    } catch (e) {
+      // saving error
+    }
+  },
+  removeStore: async (key: string) => {
+    try {
+      await AsyncStorage.removeItem(key);
+    } catch (e) {
+      // saving error
+    }
+  },
 });
 
-clearData() // 清除缓存数据
+// clearData(); 清除缓存数据
 
 const store = createStore(
   {},
   {}
-  getData(), // 获取localStorage中的缓存数据
+  {}, // 获取localStorage中的缓存数据
   [
     middleware, // 使用中间件
   ],
 );
+
+// 同步缓存到store
+getData().then(data => store.globalSetStates(data));
 
 ````

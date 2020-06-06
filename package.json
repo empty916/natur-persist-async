@@ -1,7 +1,7 @@
 {
-  "name": "natur-persist",
+  "name": "natur-persist-async",
   "version": "0.0.1",
-  "description": "natur  localStorage持久化中间件",
+  "description": "natur持久化中间件异步版",
   "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://empty916@github.com/empty916/natur-persist.git"
+    "url": "git+https://empty916@github.com/empty916/natur-persist-async.git"
   },
   "author": "empty916",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/empty916/natur-persist/issues"
+    "url": "https://github.com/empty916/natur-persist-async/issues"
   },
-  "homepage": "https://github.com/empty916/natur-persist#readme",
+  "homepage": "https://github.com/empty916/natur-persist-async#readme",
   "devDependencies": {
     "natur": "^1.1.8",
     "rimraf": "^3.0.2",
