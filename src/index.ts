@@ -91,7 +91,6 @@ function createPersistMiddleware({
   // 初始化key，读取storage中的数据
   const init = (async () => {
     const keyNames = await keys.get();
-    console.log(keyNames);
     if (keyNames.length) {
       if (lsData === undefined) {
         lsData = {};

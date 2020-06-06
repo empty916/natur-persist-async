@@ -124,7 +124,6 @@ function createPersistMiddleware(_a) {
                 case 0: return [4 /*yield*/, keys.get()];
                 case 1:
                     keyNames = _a.sent();
-                    console.log(keyNames);
                     if (!keyNames.length) return [3 /*break*/, 3];
                     if (lsData === undefined) {
                         lsData = {};
