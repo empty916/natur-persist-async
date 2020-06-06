@@ -1,4 +1,4 @@
-# rn-natur-persist
+# natur-persist-async
 
 ## natur状态管理器的异步持久化缓存中间件
 
@@ -8,17 +8,17 @@
 
 ````typescript
 import { createStore } from 'natur';
-import createPersistMiddleware from 'rn-natur-persist';
+import createPersistMiddleware from 'natur-persist-async';
 import AsyncStorage from '@react-native-community/async-storage';
 
 
 const { middleware, getData, clearData } = createPersistMiddleware({
-  name: '_data', // localStorage命名前缀
-  time: 500, // natur数据同步到localStorage的延迟
+  name: '_data', // store数据变量名命名前缀
+  time: 500, // natur数据同步到store的延迟
   exclude: ['module1', /^module2$/], // module1, module2不做持久化缓存
   include: ['module3', /^module4$/], // 只针对module3，module4做持久化缓存
   specific: {
-    user: 0, // 用户模块的保存延迟为0，意为用户模块的数据同步到localStorage是同步的
+    user: 0, // 用户模块的保存延迟为0，意为用户模块的数据同步到store是同步的
   },
   setItem: async (key: string, value: any) => {
     try {
@@ -29,7 +29,8 @@ const { middleware, getData, clearData } = createPersistMiddleware({
   },
   getItem: async (key: string) => {
     try {
-      await AsyncStorage.getItem(key);
+      const value = await AsyncStorage.getItem(key);
+      return !!value ? JSON.parse(value) : value;
     } catch (e) {
       // get error
     }
