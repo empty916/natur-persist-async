@@ -75,8 +75,8 @@ function createPersistMiddleware({
     return true;
   };
 
-  // 同步excludeModule、includeModule配置到keys
-  (async function () {
+  const init = (async () => {
+    // 同步excludeModule、includeModule配置到keys
     const keyValue = (await keys.value) || [];
     await Promise.all(
       keyValue.map(async (m) => {
@@ -86,10 +86,7 @@ function createPersistMiddleware({
         }
       })
     );
-  })();
-
-  // 初始化key，读取storage中的数据
-  const init = (async () => {
+    // 初始化key，读取storage中的数据
     const keyNames = await keys.get();
     if (keyNames.length) {
       if (lsData === undefined) {
@@ -119,10 +116,10 @@ function createPersistMiddleware({
     }
   };
   const lsMiddleware: Middleware = () => (next) => (record) => {
-    if (lsData === undefined) {
-      lsData = {};
-    }
     init.then(() => {
+      if (lsData === undefined) {
+        lsData = {};
+      }
       updateData(lsData as Data, record as any);
     });
     return next(record);

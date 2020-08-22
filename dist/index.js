@@ -82,49 +82,36 @@ function createPersistMiddleware(_a) {
         }
         return true;
     };
-    // 同步excludeModule、includeModule配置到keys
-    (function () {
-        return __awaiter(this, void 0, void 0, function () {
-            var keyValue;
-            var _this = this;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, keys.value];
-                    case 1:
-                        keyValue = (_a.sent()) || [];
-                        return [4 /*yield*/, Promise.all(keyValue.map(function (m) { return __awaiter(_this, void 0, void 0, function () {
-                                return __generator(this, function (_a) {
-                                    switch (_a.label) {
-                                        case 0:
-                                            if (!(excludeModule(m) || !includeModule(m))) return [3 /*break*/, 3];
-                                            return [4 /*yield*/, keys.remove(m)];
-                                        case 1:
-                                            _a.sent();
-                                            return [4 /*yield*/, store.remove("" + dataPrefix + m)];
-                                        case 2:
-                                            _a.sent();
-                                            _a.label = 3;
-                                        case 3: return [2 /*return*/];
-                                    }
-                                });
-                            }); }))];
-                    case 2:
-                        _a.sent();
-                        return [2 /*return*/];
-                }
-            });
-        });
-    })();
-    // 初始化key，读取storage中的数据
     var init = (function () { return __awaiter(_this, void 0, void 0, function () {
-        var keyNames;
+        var keyValue, keyNames;
         var _this = this;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, keys.get()];
+                case 0: return [4 /*yield*/, keys.value];
                 case 1:
+                    keyValue = (_a.sent()) || [];
+                    return [4 /*yield*/, Promise.all(keyValue.map(function (m) { return __awaiter(_this, void 0, void 0, function () {
+                            return __generator(this, function (_a) {
+                                switch (_a.label) {
+                                    case 0:
+                                        if (!(excludeModule(m) || !includeModule(m))) return [3 /*break*/, 3];
+                                        return [4 /*yield*/, keys.remove(m)];
+                                    case 1:
+                                        _a.sent();
+                                        return [4 /*yield*/, store.remove("" + dataPrefix + m)];
+                                    case 2:
+                                        _a.sent();
+                                        _a.label = 3;
+                                    case 3: return [2 /*return*/];
+                                }
+                            });
+                        }); }))];
+                case 2:
+                    _a.sent();
+                    return [4 /*yield*/, keys.get()];
+                case 3:
                     keyNames = _a.sent();
-                    if (!keyNames.length) return [3 /*break*/, 3];
+                    if (!keyNames.length) return [3 /*break*/, 5];
                     if (lsData === undefined) {
                         lsData = {};
                     }
@@ -144,10 +131,10 @@ function createPersistMiddleware(_a) {
                                 }
                             });
                         }); }))];
-                case 2:
+                case 4:
                     _a.sent();
-                    _a.label = 3;
-                case 3: return [2 /*return*/];
+                    _a.label = 5;
+                case 5: return [2 /*return*/];
             }
         });
     }); })();
@@ -163,10 +150,10 @@ function createPersistMiddleware(_a) {
         }
     };
     var lsMiddleware = function () { return function (next) { return function (record) {
-        if (lsData === undefined) {
-            lsData = {};
-        }
         init.then(function () {
+            if (lsData === undefined) {
+                lsData = {};
+            }
             updateData(lsData, record);
         });
         return next(record);
