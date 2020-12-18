@@ -46,16 +46,18 @@ const { middleware, getData, clearData } = createPersistMiddleware({
 
 // clearData(); 清除缓存数据
 
+
 const store = createStore(
   {},
   {}
-  {}, // 获取localStorage中的缓存数据
-  [
-    middleware, // 使用中间件
-  ],
+  {
+    middlewares: [
+      middleware, // 使用中间件, 同步数据到storage
+    ]
+  }
 );
 
-// 同步缓存到store
+// store填充缓存的数据
 getData().then(data => store.globalSetStates(data));
 
 ````
