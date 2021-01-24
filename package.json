@@ -1,6 +1,6 @@
 {
   "name": "natur-persist-async",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "natur持久化中间件异步版",
   "main": "dist/index.js",
   "scripts": {
